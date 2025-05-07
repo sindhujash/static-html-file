@@ -1,14 +1,17 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'nginx:alpine'
+        }
+    }
     stages {
-        stage('Serve HTML using Python HTTP Server') {
+        stage('Serve HTML using Docker NGINX') {
             steps {
-                echo 'Serving HTML using Python3...'
+                echo 'Serving HTML with Docker NGINX...'
                 sh '''
-                    mkdir -p /tmp/html
-                    cp index.html /tmp/html/
-                    cd /tmp/html
-                    nohup python3 -m http.server 8081 &
+                    mkdir -p html
+                    cp index.html html/
+                    nohup sh -c "nginx -g 'daemon off;' &" &
                     sleep 30
                 '''
             }
