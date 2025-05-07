@@ -1,19 +1,10 @@
 pipeline {
-    agent {
-        docker {
-            image 'nginx:alpine'
-        }
-    }
+    agent any
     stages {
-        stage('Serve HTML using Docker NGINX') {
+        stage('Archive HTML') {
             steps {
-                echo 'Serving HTML with Docker NGINX...'
-                sh '''
-                    mkdir -p html
-                    cp index.html html/
-                    nohup sh -c "nginx -g 'daemon off;' &" &
-                    sleep 30
-                '''
+                echo 'Archiving static HTML page...'
+                archiveArtifacts artifacts: 'index.html', fingerprint: true
             }
         }
     }
