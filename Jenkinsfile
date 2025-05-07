@@ -3,10 +3,12 @@ pipeline {
     stages {
         stage('Serve HTML') {
             steps {
-                echo 'Serving HTML...'
+                echo 'Serving HTML using BusyBox httpd...'
                 sh '''
-                    python3 -m http.server 8081 &
-                    sleep 10
+                    mkdir -p /tmp/html
+                    cp index.html /tmp/html/
+                    busybox httpd -f -p 8081 -h /tmp/html &
+                    sleep 30
                 '''
             }
         }
