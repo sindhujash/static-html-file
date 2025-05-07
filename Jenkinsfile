@@ -1,15 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('Serve HTML') {
+        stage('Serve HTML using Docker') {
             steps {
-                echo 'Serving HTML using BusyBox httpd...'
-                sh '''
-                    mkdir -p /tmp/html
-                    cp index.html /tmp/html/
-                    busybox httpd -f -p 8081 -h /tmp/html &
-                    sleep 30
-                '''
+                script {
+                    sh '''
+                        mkdir -p html
+                        cp index.html html/
+
+                        docker run --rm -d -p 8081:80 \
+                            -v $PWD/html:/usr/share/nginx/html:ro \
+                            --name static-server nginx
+
+                        sleep 30
+                    '''
+                }
             }
         }
     }
