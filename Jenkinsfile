@@ -1,20 +1,16 @@
 pipeline {
     agent any
     stages {
-        stage('Serve HTML using Docker') {
+        stage('Serve HTML using Python HTTP Server') {
             steps {
-                script {
-                    sh '''
-                        mkdir -p html
-                        cp index.html html/
-
-                        docker run --rm -d -p 8081:80 \
-                            -v $PWD/html:/usr/share/nginx/html:ro \
-                            --name static-server nginx
-
-                        sleep 30
-                    '''
-                }
+                echo 'Serving HTML using Python3...'
+                sh '''
+                    mkdir -p /tmp/html
+                    cp index.html /tmp/html/
+                    cd /tmp/html
+                    nohup python3 -m http.server 8081 &
+                    sleep 30
+                '''
             }
         }
     }
