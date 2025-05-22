@@ -1,10 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My Static Site</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevOps Hub</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121826;
+      color: #f5f5f5;
+    }
+
+    header {
+      background-color: #0f62fe;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #fff;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background-color: #1f2937;
+    }
+
+    .tab-button {
+      padding: 15px 25px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: #ccc;
+      font-size: 1rem;
+      transition: color 0.3s, border-bottom 0.3s;
+    }
+
+    .tab-button.active {
+      color: #fff;
+      border-bottom: 3px solid #0f62fe;
+    }
+
+    .content {
+      padding: 20px;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background-color: #1e293b;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px #00000040;
+    }
+
+    .card h2 {
+      color: #ffb347;
+    }
+
+    footer {
+      background-color: #0f62fe;
+      text-align: center;
+      padding: 15px;
+      color: white;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Namaste! This site is deployed via Jenkins 🛠️</h1>
+
+  <header>
+    <h1>DevOps Hub 🚀</h1>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-button active" onclick="showTab('intro')">Introduction</button>
+    <button class="tab-button" onclick="showTab('tools')">Tools</button>
+    <button class="tab-button" onclick="showTab('pipeline')">CI/CD Pipeline</button>
+  </div>
+
+  <section id="intro" class="content active">
+    <div class="card">
+      <h2>What is DevOps?</h2> 
+      <p>DevOps bridges the gap between development and operations by automating workflows, infrastructure, and monitoring to achieve faster and more reliable software delivery.</p>
+    </div>
+  </section>
+
+  <section id="tools" class="content">
+    <div class="card">
+      <h2>Popular DevOps Tools</h2>
+      <ul>
+        <li><strong>Git</strong> – Version Control System</li>
+        <li><strong>Jenkins</strong> – CI/CD Automation</li>
+        <li><strong>Docker</strong> – Containerization</li>
+        <li><strong>Kubernetes</strong> – Orchestration</li>
+        
+        <li><strong>Prometheus + Grafana</strong> – Monitoring & Visualization</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="pipeline" class="content">
+    <div class="card">
+      <h2>Sample CI/CD Pipeline</h2>
+      <ol>
+        <li>Developer pushes code to GitHub</li>
+        <li>Jenkins triggers automated build</li>
+        <li>Tests are run using testing frameworks</li>
+        <li>Docker image is created and pushed to registry</li>
+        <li>Kubernetes deploys updated containers</li>
+        <li>Monitoring tools check app health</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- <footer>
+    <p>Made for DevOps learners</p>
+  </footer> -->
+
+  <script>
+    function showTab(tabId) {
+      const contents = document.querySelectorAll('.content');
+      const buttons = document.querySelectorAll('.tab-button');
+
+      contents.forEach(c => c.classList.remove('active'));
+      buttons.forEach(b => b.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+
 </body>
 </html>
